@@ -1,27 +1,25 @@
-# Path where the new build will be deployed
-$targetPath = "C:\inetpub\wwwroot\reactdemo"  # need o add our path
-
-# Path where CodePipeline drops the new build (artifact)
-$sourcePath = "C:\demo\build"  # dummy path for testing
+# Path where build will be deployed and served from
+$deployPath = "C:\demo\build"
 
 Write-Host "Starting deployment..."
-Write-Host "Source: $sourcePath"
-Write-Host "Target: $targetPath"
+Write-Host "Deploy Path: $deployPath"
 
-# Stop the service before deploying (optional)
+# Stop your service before updating (optional)
 $serviceName = "ReactDemoService"
 if (Get-Service -Name $serviceName -ErrorAction SilentlyContinue) {
     Write-Host "Stopping service $serviceName..."
     Stop-Service -Name $serviceName -Force
 }
 
-# Copy new files to target folder
-if (Test-Path $targetPath) {
-    Remove-Item -Recurse -Force "$targetPath\*"
+# If there’s a zipped artifact, unzip it
+$zipFile = Get-ChildItem -Path $deployPath -Filter *.zip | Select-Object -First 1
+if ($zipFile) {
+    Write-Host "Extracting $($zipFile.FullName)..."
+    Expand-Archive -Path $zipFile.FullName -DestinationPath $deployPath -Force
+    Remove-Item $zipFile.FullName -Force
 }
-Copy-Item -Path "$sourcePath\*" -Destination $targetPath -Recurse -Force
 
-# Start the service again
+# Restart the service
 if (Get-Service -Name $serviceName -ErrorAction SilentlyContinue) {
     Write-Host "Starting service $serviceName..."
     Start-Service -Name $serviceName
