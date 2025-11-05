@@ -1,5 +1,5 @@
 # Path where build will be deployed and served from
-$deployPath = "C:\demo\build"
+$deployPath = "C:\react-demo\build"
 
 Write-Host "Starting deployment..."
 Write-Host "Deploy Path: $deployPath"
