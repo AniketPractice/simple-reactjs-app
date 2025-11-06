@@ -11,10 +11,11 @@ phases:
     commands:
       - echo Building the React app...
       - npm run build
+      - echo Copying deployment scripts...
+      - copy .\restart_service.ps1 .\build\
+      - copy .\appspec.yml .\build\
 
 artifacts:
   files:
-    - build/**/*
-    - restart_service.ps1
-    - appspec.yml
- 
+    - '**/*'
+  base-directory: build
