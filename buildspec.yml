@@ -14,7 +14,7 @@ phases:
 
 artifacts:
   files:
-    - '**/*'
+    - build/**/*
     - restart_service.ps1
     - appspec.yml
-  base-directory: build
+ 
