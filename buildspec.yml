@@ -9,13 +9,19 @@ phases:
       - npm install
   build:
     commands:
-      - echo Building the React app...
+      - echo Building React app...
       - npm run build
-      - echo Copying deployment scripts...
-      - copy .\restart_service.ps1 .\build\
-      - copy .\appspec.yml .\build\
-
+  post_build:
+    commands:
+      - echo Deploying build to Windows server...
+      # Replace TARGET_SERVER, USERNAME, PASSWORD with your server details
+      - powershell.exe -Command "
+        $source = 'build\*';
+        $destination = '\\TARGET_SERVER\c$\inetpub\wwwroot\reactdemo';
+        Copy-Item -Path $source -Destination $destination -Recurse -Force;
+        Restart-Service W3SVC;
+        Write-Host 'Deployment completed!';
+      "
 artifacts:
   files:
     - '**/*'
-  base-directory: build
