@@ -15,4 +15,5 @@ phases:
 artifacts:
   files:
     - '**/*'
+    - restart_service.ps1
   base-directory: build
