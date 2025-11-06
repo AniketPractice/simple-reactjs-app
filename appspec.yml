@@ -1,0 +1,10 @@
+version: 0.0
+os: windows
+files:
+  - source: /
+    destination: C:\react-demo\build
+hooks:
+  AfterInstall:
+    - location: restart_service.ps1
+      timeout: 300
+      runas: Administrator
