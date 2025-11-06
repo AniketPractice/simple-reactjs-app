@@ -7,21 +7,24 @@ phases:
     commands:
       - echo Installing dependencies...
       - npm install
+
   build:
     commands:
       - echo Building React app...
       - npm run build
+
   post_build:
     commands:
       - echo Deploying build to Windows server...
-      # Replace TARGET_SERVER, USERNAME, PASSWORD with your server details
-      - powershell.exe -Command "
+      - |
+        powershell.exe -Command "
         $source = 'build\*';
-        $destination = '\\Developer SRV\c$\react-demo\build';
+        $destination = '\\DeveloperSRV\c$\react-demo\build';
         Copy-Item -Path $source -Destination $destination -Recurse -Force;
         Restart-Service W3SVC;
         Write-Host 'Deployment completed!';
-      "
+        "
+
 artifacts:
   files:
     - '**/*'
