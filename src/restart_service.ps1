@@ -1,10 +1,10 @@
 # Path where build will be deployed and served from
-$deployPath = "C:/react-demo"
+$deployPath = "C:\react-demo\build"
 
 Write-Host "Starting deployment..."
 Write-Host "Deploy Path: $deployPath"
 
-# Stop your service before updating (optional)
+# Optional: stop your service before updating
 $serviceName = "ReactDemoService"
 if (Get-Service -Name $serviceName -ErrorAction SilentlyContinue) {
     Write-Host "Stopping service $serviceName..."
