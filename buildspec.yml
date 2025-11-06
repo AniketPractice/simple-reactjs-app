@@ -17,7 +17,7 @@ phases:
       # Replace TARGET_SERVER, USERNAME, PASSWORD with your server details
       - powershell.exe -Command "
         $source = 'build\*';
-        $destination = '\\TARGET_SERVER\c$\inetpub\wwwroot\reactdemo';
+        $destination = '\\Developer SRV\c$\react-demo\build';
         Copy-Item -Path $source -Destination $destination -Recurse -Force;
         Restart-Service W3SVC;
         Write-Host 'Deployment completed!';
