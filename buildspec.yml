@@ -7,24 +7,14 @@ phases:
     commands:
       - echo Installing dependencies...
       - npm install
-
   build:
     commands:
       - echo Building React app...
       - npm run build
-
   post_build:
     commands:
-      - echo Deploying build to Windows server...
-      - |
-        powershell.exe -Command "
-        $source = 'build\*';
-        $destination = '\\DeveloperSRV\c$\react-demo\build';
-        Copy-Item -Path $source -Destination $destination -Recurse -Force;
-        Restart-Service W3SVC;
-        Write-Host 'Deployment completed!';
-        "
-
+      - echo Uploading build to S3...
+      - aws s3 sync build/ s3://react-builds-ap-south-1/ --delete
 artifacts:
   files:
     - '**/*'
