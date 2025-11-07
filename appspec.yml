@@ -3,8 +3,3 @@ os: windows
 files:
   - source: /
     destination: C:/react-demo
-hooks:
-  AfterInstall:
-    - location: restart_service.ps1
-      timeout: 300
-      runas: Administrator
