@@ -14,7 +14,7 @@ phases:
   post_build:
     commands:
       - echo Uploading build to S3...
-      - aws s3 sync build/ s3://react-builds-ap-south-1/ --delete
+      - aws s3 sync build/ s3://adfactors-radar-api/ --delete
 artifacts:
   files:
     - '**/*'
