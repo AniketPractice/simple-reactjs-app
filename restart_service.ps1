@@ -8,14 +8,6 @@ Write-Host "Deploy Path: $deployPath"
 Write-Host "Cleaning up old files..."
 Get-ChildItem -Path $deployPath -Recurse | Where-Object { $_.Name -ne "web.config" } | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
 
-# If there’s a zipped artifact, unzip it
-$zipFile = Get-ChildItem -Path $deployPath -Filter *.zip | Select-Object -First 1
-if ($zipFile) {
-    Write-Host "Extracting $($zipFile.FullName)..."
-    Expand-Archive -Path $zipFile.FullName -DestinationPath $deployPath -Force
-    Remove-Item $zipFile.FullName -Force
-}
-
 # Restart IIS site (replace with your actual site name)
 $siteName = "need to enter our site name"
 
