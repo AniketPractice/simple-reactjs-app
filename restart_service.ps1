@@ -9,7 +9,7 @@ Write-Host "Cleaning up old files..."
 Get-ChildItem -Path $deployPath -Recurse | Where-Object { $_.Name -ne "web.config" } | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
 
 # Restart IIS site (replace with your actual site name)
-$siteName = "need to enter our site name"
+$siteName = "react-demo"
 
 Write-Host "Restarting IIS site: $siteName..."
 Import-Module WebAdministration
